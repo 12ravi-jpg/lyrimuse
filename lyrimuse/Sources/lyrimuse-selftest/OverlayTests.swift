@@ -1734,16 +1734,16 @@ func runOverlayTests() {
                     "换句起步: 描边开着时预览跟主句差不多亮,不压暗")
         expectEqual(R.startOpacity(strokeEnabled: false, mainUsesUnsungColor: false, unsungAlpha: 0.35), R.previewOpacity,
                     "换句起步: 主句画前景色时从预览的不透明度起步")
-        expectEqual(abs(R.startOpacity(strokeEnabled: false, mainUsesUnsungColor: true, unsungAlpha: 0.8) - 0.5) < 1e-9, true,
+        expectEqual(abs(R.startOpacity(strokeEnabled: false, mainUsesUnsungColor: true, unsungAlpha: 0.8) - 0.35) < 1e-9, true,
                     "换句起步: 主句画未唱色时按两者不透明度之比")
         expectEqual(R.startOpacity(strokeEnabled: false, mainUsesUnsungColor: true, unsungAlpha: 0.35), 1,
                     "换句起步: 未唱色比预览还淡时不再压,最多 1")
         expectEqual(R.startOpacity(strokeEnabled: false, mainUsesUnsungColor: true, unsungAlpha: 0), 1,
                     "换句起步: 未唱色全透明时不压")
-        expectEqual(R.duration, 0.25, "换句时序: 走上来 0.25 秒(同 LyricsX)")
-        expectEqual(R.curve.x1 == 0.4 && R.curve.y1 == 0 && R.curve.x2 == 0.2 && R.curve.y2 == 1, true,
-                    "换句时序: cubic-bezier(0.4, 0, 0.2, 1)")
-        expectEqual(R.fadeOutDuration, 0.12, "换句时序: 旧的一句 0.12 秒淡完")
+        expectEqual(R.duration, 0.56, "换句时序: 走上来 0.56 秒(Apple Music 风格)")
+        expectEqual(R.curve.x1 == 0.16 && R.curve.y1 == 1.0 && R.curve.x2 == 0.3 && R.curve.y2 == 1.0, true,
+                    "换句时序: cubic-bezier(0.16, 1.0, 0.3, 1.0)")
+        expectEqual(R.fadeOutDuration, 0.34, "换句时序: 旧的一句 0.34 秒淡完")
         expectEqual(abs(R.lateInDelay + R.lateInDuration - R.duration) < 1e-9, true,
                     "换句时序: 新的下一句在走上来的那一句到位时正好淡完")
     }

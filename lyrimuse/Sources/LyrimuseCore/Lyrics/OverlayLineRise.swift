@@ -3,15 +3,15 @@ import CoreGraphics
 /// 悬浮歌词换句动画的时序与起步几何。时长和缓动照抄 LyricsX `KaraokeLyricsView.displayLrc`。
 public enum OverlayLineRise {
     /// 新主句走上来(或原地淡入)的时长,缓动 cubic-bezier(0.4, 0, 0.2, 1)。
-    public static let duration: Double = 0.25
-    public static let curve: (x1: Float, y1: Float, x2: Float, y2: Float) = (0.4, 0, 0.2, 1)
+    public static let duration: Double = 0.56
+    public static let curve: (x1: Float, y1: Float, x2: Float, y2: Float) = (0.16, 1.0, 0.3, 1.0)
     /// 旧的一句(连同读音、译文)原地淡完的时长,缓动 ease-out。
-    public static let fadeOutDuration: Double = 0.12
+    public static let fadeOutDuration: Double = 0.34
     /// 新的下一句等走上来的那一句到位、后半程才淡入,缓动 ease-out。
-    public static let lateInDelay: Double = 0.13
-    public static let lateInDuration: Double = 0.12
+    public static let lateInDelay: Double = 0.22
+    public static let lateInDuration: Double = 0.34
     /// 下一句预览的文字颜色是前景色乘这个不透明度(描边不打折)。
-    public static let previewOpacity: Double = 0.4
+    public static let previewOpacity: Double = 0.28
 
     /// 走上来的那一句起步时整格的不透明度,随走随到 1:让起步那一帧跟上一拍的下一句预览一样亮。主句开头没唱到的部分
     /// 有逐字时间时画未唱色(不透明度 `unsungAlpha`),否则画前景色。描边开着时预览和主句看上去差不多亮,不压;

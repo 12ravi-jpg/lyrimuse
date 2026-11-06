@@ -143,6 +143,7 @@ extension ColorTheme {
     // 冻结在进程内第一次访问时的语言上。访问点都在设置页 / 菜单渲染路径上,不在热路径,每次重建
     // 7 个 struct 的开销可以忽略。
     public static var builtInPresets: [ColorTheme] { [
+        appleMinimalist,
         initialDefault,
         inkOutline,
         ColorTheme(
@@ -179,6 +180,16 @@ extension ColorTheme {
             textStrokeEnabled: true, textStrokeColorHex: "#000000E6", rainbow: true
         ),
     ] }
+
+    /// 极简白字:纯白前景 + 38% 白未唱 + 透明背景 + 无描边 + 不跟随封面。
+    public static var appleMinimalist: ColorTheme {
+        ColorTheme(
+            id: "builtin-apple-minimalist", name: L10n.t("经典白字"),
+            foregroundColorHex: "#FFFFFFFF", karaokeUnsungColorHex: "#FFFFFF61", backgroundColorHex: "#00000000",
+            textStrokeEnabled: false, textStrokeColorHex: "#000000A6",
+            followsCoverArt: false, karaokeUnsungFollowsCoverArt: false
+        )
+    }
 
     /// 墨字白边:黑字 + 透明底 + 不透明白描边,未唱是 55% 黑。单独命名是因为 `defaultTheme` 要引用它,
     /// "默认配色"和"预设列表里第 N 项"是两件事,不靠数组下标耦合。
@@ -223,15 +234,15 @@ extension ColorTheme {
             && (!strokeEnabled || textStrokeColorHex == strokeHex)
     }
 
-    /// 「默认」:全新安装的那套配置 —— 墨字白边的颜色 + 已唱、未唱都跟随封面
-    /// (`AppSettings.defaultFollowsCoverArt` / `defaultKaraokeUnsungFollowsCoverArt`)。
+    /// 「默认」:全新安装的那套配置 —— 极简白字的颜色 + 已唱、未唱跟随封面由
+    /// `AppSettings.defaultFollowsCoverArt` / `defaultKaraokeUnsungFollowsCoverArt` 决定。
     public static var initialDefault: ColorTheme {
-        let ink = inkOutline
+        let base = appleMinimalist
         return ColorTheme(
             id: "builtin-default", name: L10n.t("默认"),
-            foregroundColorHex: ink.foregroundColorHex, karaokeUnsungColorHex: ink.karaokeUnsungColorHex,
-            backgroundColorHex: ink.backgroundColorHex,
-            textStrokeEnabled: ink.textStrokeEnabled, textStrokeColorHex: ink.textStrokeColorHex,
+            foregroundColorHex: base.foregroundColorHex, karaokeUnsungColorHex: base.karaokeUnsungColorHex,
+            backgroundColorHex: base.backgroundColorHex,
+            textStrokeEnabled: base.textStrokeEnabled, textStrokeColorHex: base.textStrokeColorHex,
             followsCoverArt: AppSettings.defaultFollowsCoverArt,
             karaokeUnsungFollowsCoverArt: AppSettings.defaultKaraokeUnsungFollowsCoverArt
         )

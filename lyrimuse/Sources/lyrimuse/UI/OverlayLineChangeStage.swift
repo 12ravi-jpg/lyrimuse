@@ -359,6 +359,13 @@ final class OverlayLineChangeStageView: NSView {
         view.alphaValue = 0
         view.layer?.add(Self.fade(from: 1, to: 0, duration: OverlayLineRise.fadeOutDuration,
                                   curve: CAMediaTimingFunction(name: .easeOut)), forKey: "lineFadeOut")
+        // 退场时轻轻向上漂移,配合淡出营造 Apple Music 风格的优雅离场。
+        let float = CABasicAnimation(keyPath: "transform.translation.y")
+        float.fromValue = 0
+        float.toValue = -14
+        float.duration = OverlayLineRise.fadeOutDuration
+        float.timingFunction = CAMediaTimingFunction(name: .easeOut)
+        view.layer?.add(float, forKey: "lineFloatUp")
         retiring.append(view)
         DispatchQueue.main.asyncAfter(deadline: .now() + OverlayLineRise.fadeOutDuration) { [weak self, weak view] in
             MainActor.assumeIsolated {

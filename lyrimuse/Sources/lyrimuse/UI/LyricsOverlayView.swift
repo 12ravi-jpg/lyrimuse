@@ -1109,7 +1109,8 @@ struct LyricsOverlayView<Chrome: OverlayChromeSource>: View {
     /// SwiftUI 画歌词的那几条路(整行主行、读音、译文、下一句)套描边;选了彩虹时字当蒙版、颜色换成流动彩虹
     /// (`LyricStrokeRainbow`)。状态文案、提示不走这里,彩虹时照旧白字。
     private func lyricStroke<V: View>(_ text: V) -> some View {
-        text.modifier(LyricStrokeRainbow(rainbow: playback.rainbow, flowing: rainbowFlowing,
+        text.tracking(-0.2)
+            .modifier(LyricStrokeRainbow(rainbow: playback.rainbow, flowing: rainbowFlowing,
                                          strokeEnabled: playback.textStrokeEnabled, strokeColor: playback.textStrokeColor))
     }
 
@@ -2086,6 +2087,12 @@ struct LyricStrokeRainbow: ViewModifier {
             content
                 .rainbowFill(true, flowing: flowing)
                 .lyricsTextStroke(strokeEnabled, color: strokeColor) { content }
+        } else if !strokeEnabled {
+            // 无描边时投三层环境阴影,营造 Apple Music 风格的浮起感。
+            content.lyricsTextStroke(false, color: strokeColor)
+                .shadow(color: .black.opacity(0.50), radius: 4, x: 0, y: 1)
+                .shadow(color: .black.opacity(0.28), radius: 10, x: 0, y: 3)
+                .shadow(color: .black.opacity(0.10), radius: 24, x: 0, y: 6)
         } else {
             content.lyricsTextStroke(strokeEnabled, color: strokeColor)
         }

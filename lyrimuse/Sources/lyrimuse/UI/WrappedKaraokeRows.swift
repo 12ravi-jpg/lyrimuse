@@ -383,6 +383,7 @@ final class WrappedKaraokeRowsView: NSView {
             strokeColor: spec.strokeColor,
             alignment: .leading,
             paused: spec.paused,
+            shadow: spec.strokeColor == nil ? OverlayScrollingLyricRow.TextShadow(color: NSColor.black.withAlphaComponent(0.50), radius: 4, offsetY: 1) : nil,
             timingEpoch: spec.timingEpoch,
             rate: spec.rate,
             rainbow: spec.rainbow,

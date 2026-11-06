@@ -593,10 +593,10 @@ final class AppSettings: ObservableObject {
     // 文字色「跟随封面」的默认值:init()、「恢复默认」和内置主题「默认」
     // (`ColorTheme.initialDefault`)都读它,不各自硬编码。nonisolated:`ColorTheme` 的内置预设
     // 在非隔离上下文里构造。
-    nonisolated static let defaultFollowsCoverArt = true
+    nonisolated static let defaultFollowsCoverArt = false
     // 未唱色「跟随封面」的默认值,同上三处都读它。两处都跟随时不会变成同一个颜色:未唱那一半取封面色
     // 再乘 `WordKaraokeGradient.dimOpacity`(见 OverlayPlayback 的 displayKaraokeUnsungColor)。
-    nonisolated static let defaultKaraokeUnsungFollowsCoverArt = true
+    nonisolated static let defaultKaraokeUnsungFollowsCoverArt = false
 
     // 灵动岛「重置」按钮(编辑台工具栏第一行)要恢复的那一批默认值——
     // 风格 + 左右耳 + 屏幕 + 全部内容开关,不含 `notchOverlayEnabled`(总开关)和
